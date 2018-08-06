@@ -14,6 +14,8 @@ import at.wrk.model.Benutzer;
 import at.wrk.service.UserService;
 import at.wrk.web.dto.UserRegistrationDto;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 @Controller

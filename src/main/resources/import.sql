@@ -1,0 +1,1 @@
+INSERT INTO benutzer(id, anzeigename, benutzername, dienstnummer, passwort) VALUES (1, 'ADMIN', 'ADMIN', '', '$2a$10$WbF6KfT2d700cpPx.V5Fcu5dtmiy3K2Z4RjDTy2vDWsOg7Mu1oy4y');

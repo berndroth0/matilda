@@ -13,7 +13,7 @@ import at.wrk.model.Rolle;
 import at.wrk.repository.UserRepository;
 import at.wrk.web.dto.UserRegistrationDto;
 
-import java.util.Arrays;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         benutzer.setRollen(registration.getRollen());
         return userRepository.save(benutzer);
     }
-
+    
     @Override
     public UserDetails loadUserByUsername(String benutzername) throws UsernameNotFoundException {
         Benutzer benutzer = userRepository.findByBenutzername(benutzername);
