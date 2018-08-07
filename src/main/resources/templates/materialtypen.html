@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Materialtyp</title>
+</head>
+<body>
+<h2>Materialtyp List</h2>
+<div th:unless="${#lists.isEmpty(materialTypen)}">
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Name</th>
+<th>Menge</th>
+<th>Beschreibung</th>
+<th>Link</th>
+</tr>
+</thead>
+<dl th:each="materialTyp : ${materialTypen}">
+<tr>
+<td th:text="${materialTyp.name}"></td>
+<td th:text="${materialTyp.menge}"></td>
+<td th:text="${materialTyp.beschreibung}"></td>
+<td th:text="${materialTyp.link}"></td>
+</tr>
+</table>
+</div>
+<div th:if="${#lists.isEmpty(materialTypen)}">
+<p>Es gibt kein Materialtyp</p>
+</div>
+<hr/>
+<h3>einen neuen Materialtyp hinzufuegen</h3>
+<form th:action="@{/materialtypen/add}" method="POST">
+
+<label for="name">Name:</label>
+<input type="text" name="name" size="50"></input><br/>
+<label for="menge">Menge:</label>
+<input type="text" name="menge" size="50"></input><br/>
+<label for="beschreibung">Beschreibung:</label>
+<input type="text" name="beschreibung" size="50"></input><br/>
+<label for="link">Link:</label>
+<input type="text" name="link" size="50"></input><br/>
+<br/>
+<input type="submit"></input>
+</form>
+</body>

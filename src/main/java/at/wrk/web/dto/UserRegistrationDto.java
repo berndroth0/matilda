@@ -108,6 +108,7 @@ public class UserRegistrationDto {
 	{
 		this.terms = terms;
 	}
+	 
 
 	public Collection<Rolle> getRollen()
 	{

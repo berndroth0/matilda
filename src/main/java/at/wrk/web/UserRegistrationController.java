@@ -25,7 +25,7 @@ public class UserRegistrationController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("user")
+    @ModelAttribute("benutzer")
     public UserRegistrationDto userRegistrationDto() {
         return new UserRegistrationDto();
     }
@@ -36,7 +36,7 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+    public String registerUserAccount(@ModelAttribute("benutzer") @Valid UserRegistrationDto userDto,
                                       BindingResult result){
 
         Benutzer existing = userService.findByBenutzername(userDto.getBenutzername());

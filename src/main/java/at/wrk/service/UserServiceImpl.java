@@ -56,4 +56,5 @@ public class UserServiceImpl implements UserService {
                 .map(rolle -> new SimpleGrantedAuthority(rolle.getBezeichnung()))
                 .collect(Collectors.toList());
     }
+
 }

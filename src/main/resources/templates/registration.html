@@ -22,7 +22,7 @@
             </div>
 
             <h1>Registration</h1>
-            <form th:action="@{/registration}" th:object="${user}" method="post">
+            <form th:action="@{/registration}" th:object="${benutzer}" method="post">
 
                 <p class="error-message"
                    th:if="${#fields.hasGlobalErrors()}"
@@ -91,6 +91,8 @@
                        th:each="error : ${#fields.errors('konfPasswort')}"
                        th:text="${error}">Validation error</p>
                 </div>
+
+                
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('rollen')}? 'has-error':''">
                     <label for="rollen" class="control-label">Rollen: </label>

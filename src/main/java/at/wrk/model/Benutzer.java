@@ -16,17 +16,17 @@ import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "benutzername"), name = "benutzer")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "benutzername"))
 public class Benutzer
 {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
-
+	
 	private String benutzername;
 	private String passwort;
 	private String anzeigename;
-	private String dienstnummer;
+	private String dienstnummer;	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -42,14 +42,7 @@ public class Benutzer
 		
 	}
 	
-	public Benutzer(String benutzername, String passwort, String anzeigename, String dienstnummer)
-	{
-		this.benutzername = benutzername;
-		this.passwort = passwort;
-		this.anzeigename = anzeigename;
-		this.dienstnummer = dienstnummer;
-	}
-	
+
 	
 	public Benutzer(String benutzername, String passwort, String anzeigename, String dienstnummer,
 			Collection<Rolle> rollen)
@@ -58,6 +51,7 @@ public class Benutzer
 		this.passwort = passwort;
 		this.anzeigename = anzeigename;
 		this.dienstnummer = dienstnummer;
+		
 		this.rollen = rollen;
 	}
 
@@ -110,6 +104,8 @@ public class Benutzer
 	{
 		this.anzeigename = anzeigename;
 	}
+	
+
 
 	public void setDienstnummer(String dienstnummer)
 	{

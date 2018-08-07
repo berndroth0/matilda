@@ -16,14 +16,6 @@ public class Materialtyp
 	private long id;
 	private String name, menge, beschreibung , link;
 		
-	public Materialtyp(String name, String menge, String beschreibung, String link)
-	{
-		super();
-		this.name = name;
-		this.menge = menge;
-		this.beschreibung = beschreibung;
-		this.link = link;
-	}
 	public long getId()
 	{
 		return id;
