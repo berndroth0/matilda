@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="mitarbeitertyp")
-public class Mitarbeitertyp
+public class Mitarbeitertyp extends Audit
 {
 	@Id
 	private String kuerzel;

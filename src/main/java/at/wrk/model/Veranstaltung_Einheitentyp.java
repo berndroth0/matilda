@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Veranstaltung_Einheitentyp {
+public class Veranstaltung_Einheitentyp extends Audit {
 
 	@Id
 	private int nummer;

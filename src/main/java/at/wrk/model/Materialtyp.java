@@ -9,7 +9,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class Materialtyp
+public class Materialtyp extends Audit
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

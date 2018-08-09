@@ -17,8 +17,9 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "benutzername"))
-public class Benutzer
+public class Benutzer extends Audit
 {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
@@ -38,11 +39,7 @@ public class Benutzer
     private Collection<Rolle> rollen;
 
 	public Benutzer()
-	{
-		
-	}
-	
-
+	{}
 	
 	public Benutzer(String benutzername, String passwort, String anzeigename, String dienstnummer,
 			Collection<Rolle> rollen)

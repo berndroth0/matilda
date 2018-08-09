@@ -50,7 +50,9 @@ public class MaterialtypController
             return "materaltypen";
         }
         
-		materialtypRepository.save(materialtyp);
+//		materialtypRepository.save(materialtyp);
+//		saveAndFlush should invoke a direct saving..
+		materialtypRepository.saveAndFlush(materialtyp);
 		return "redirect:/materialtypen";
 	}
 }

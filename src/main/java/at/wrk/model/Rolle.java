@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Rolle {
+public class Rolle extends Audit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
