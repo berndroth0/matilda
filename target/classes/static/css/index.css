@@ -147,14 +147,6 @@ body {
   display: block;
 }
   
-  
-  
-  
-  
-  
-  
-  
-  
  /* zur Darstellung auf verschiedenen Bildschirmgrößen */
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
@@ -201,38 +193,3 @@ body {
 	position: absolute;
 	
 }
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
