@@ -14,7 +14,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Rolle extends Audit {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

@@ -40,7 +40,7 @@ public class UserRegistrationController {
 
         Benutzer existing = userService.findByBenutzername(userDto.getBenutzername());
         if (existing != null){
-            result.rejectValue("benutzername", null, "Es ist bereits ein Konto mit diesem Nutzernamen registriert");
+            result.rejectValue("benutzername", null, "Es ist bereits ein Konto mit diesem Benutzernamen registriert");
         }
 
         if (result.hasErrors()){
