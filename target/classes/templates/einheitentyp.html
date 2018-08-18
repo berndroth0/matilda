@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Einheitentyp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Einen neuen Einheitentyp hinzuf&uuml;gen</h1>
+    <form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
+    	<p>Name: <input type="text" th:field="*{name}" /></p>
+    	  <div th:if="${param.alert}">
+		<div class="alert alert-info">
+		Es gibt schon ein Einheitentyp mit gleichen Namen!
+		</div>
+		</div>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+</body>
+</html>

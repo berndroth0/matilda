@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lagerstandort Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Lagerstandort</h1>
+    <form action="#" th:action="@{/lagerstandortupdate/{id}(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post">
+    	<p>name: <input type="text" th:field="*{name}" /></p>
+    	<div th:if="${param.alert}">
+		<div class="alert alert-info">
+		Es gibt schon ein Lagerstandort mit gleichen Namen!
+		</div>
+		</div>
+        <p>Adresse: <input type="text" th:field="*{adresse}" /></p>
+        <p>Beschreibung: <input type="text" th:field="*{beschreibung}" /></p>
+        <p> Verantworltlicher:
+        <select th:field="*{benutzer}">
+  			<option th:each="benutzer : ${alleBenutzer}" 
+         	 th:value="${benutzer.id}" 
+       	     th:text="${benutzer.benutzername}"></option>
+		</select></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    <form th:action="@{/lagerstandortupdate/{id}/loeschen(id=${lagerstandort.id})}" th:object="${lagerstandort}" method="post" >
+		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+	</form>
+	</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+
+</body>
+</html>

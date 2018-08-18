@@ -83,10 +83,12 @@
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('konfPasswort')}? 'has-error':''">
                     <label for="konfPasswort" class="control-label">Bestätigungs-Passwort</label>
+                    
                     <input id="konfPasswort"
                            class="form-control"
                            type="password"
                            th:field="*{konfPasswort}"/>
+                           
                     <p class="error-message"
                        th:each="error : ${#fields.errors('konfPasswort')}"
                        th:text="${error}">Validation error</p>

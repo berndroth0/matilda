@@ -3,37 +3,24 @@ package at.wrk.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name="mitarbeitertyp")
+@Getter
+@Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "kuerzel"))
 public class Mitarbeitertyp extends Audit
 {
 	@Id
+	private long id;
 	private String kuerzel;
 	private String name;
 	
-	public Mitarbeitertyp(String kuerzel, String name)
+	public Mitarbeitertyp()
 	{
 		super();
-		this.kuerzel = kuerzel;
-		this.name = name;
-	}
-	public String getKuerzel()
-	{
-		return kuerzel;
-	}
-	public String getName()
-	{
-		return name;
-	}
-	public void setKuerzel(String kuerzel)
-	{
-		this.kuerzel = kuerzel;
-	}
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
-	
+	}	
 }

@@ -1,14 +1,8 @@
 package at.wrk.service;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +12,10 @@ import at.wrk.model.Benutzer;
 import at.wrk.model.Rolle;
 import at.wrk.repository.UserRepository;
 import at.wrk.web.dto.UserRegistrationDto;
+
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String benutzername) throws UsernameNotFoundException {
         Benutzer benutzer = userRepository.findByBenutzername(benutzername);
         if (benutzer == null){
-            throw new UsernameNotFoundException("Benutzer nicht gefunden!");
+            throw new UsernameNotFoundException("Falscher Benutzername oder Passwort.");
         }
         return new org.springframework.security.core.userdetails.User(benutzer.getBenutzername(),
                 benutzer.getPasswort(),

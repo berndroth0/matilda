@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+<title>Material</title>
+</head>
+<body>
+<h2>Aktuelle Materialen in</h2>
+<div th:unless="${#lists.isEmpty(materialen)}">
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Material</th>
+<th>Anzahl</th>
+<th>Seriennummer</th>
+<th>Einkaufsdatum</th>
+<th>Letzte Überprüfungsdatum</th>
+<th>Nächste Überprüfungsdatum</th>
+<th>Einsatzbereichtschaft</th>
+</tr>
+</thead>
+<dl th:each="material : ${materialen}">
+<tr>
+<td th:text="${material.materialtyp.name}"></td>
+<td th:text="${material.anzahl}"></td>
+<td th:text="${material.seriennummer}"></td>
+<td th:text="${material.einkaufsdatum}"></td>
+<td th:text="${material.letztesudatum}"></td>
+<td th:text="${material.naechsteudatum}"></td>
+<td th:text="${material.einsatzbereitschaft}"></td>
+<td>
+<a href="#" data-th-href="@{/materialupdate/{id}(id=${materialtyp.id})}">Ei</a>
+</td>
+</tr>
+</table>
+</div>
+<div th:if="${#lists.isEmpty(materialen)}">
+<p>Es gibt kein Material in diesem Lager</p>
+</div>
+<hr/>
+
+
+<p> ein neues Material in diesem Lager hinzufügen </p>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div th:if="${param.nomaterial}">
+                <div class="alert alert-info">
+                    Es Gibt kein Material in diesem Lager
+                </div>
+            </div>
+
+</div>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>

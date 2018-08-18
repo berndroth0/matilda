@@ -11,4 +11,8 @@ public interface MaterialtypRepository extends JpaRepository<Materialtyp, Long>
 	Materialtyp findByName(String name);
 	
 	List<Materialtyp> findAll();
+	
+	Materialtyp findById(long id);
+	
+	void deleteById(Long id);
 }

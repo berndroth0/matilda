@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mitarbeitertyp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Einen neuen Mitarbeitertyp hinzuf&uuml;gen</h1>
+    <form action="#" th:action="@{/mitarbeitertyp}" th:object="${mitarbeitertyp}" method="post">
+    	<p>Kuerzel: <input type="text" th:field="*{kuerzel}" /></p>
+    	  <div th:if="${param.alert}">
+		<div class="alert alert-info">
+		Es gibt schon ein Materialtyp mit gleichen Namen!
+		</div>
+		</div>
+        <p>name: <input type="text" th:field="*{name}" /></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    	</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

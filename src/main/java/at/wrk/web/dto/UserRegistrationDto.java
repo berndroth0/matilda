@@ -30,6 +30,7 @@ public class UserRegistrationDto {
 
     @NotEmpty
     private String konfBenutzername;
+
     
     private String dienstnummer;
     
