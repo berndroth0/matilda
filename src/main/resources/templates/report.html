@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<style>
+			form
+			{
+  				text-align: center;
+			}
+		</style>
+		<title>Report</title>
+	</head>
+<body>
+
+	<h1 align="center">Report f&uuml;r informative Ansichten</h1>
+
+	<form action="#" th:action="@{/pdf}" method="post"> 
+    	<div><input name="datePicker" id="datePicker" type="date" min="1900-01-01" required></div>
+    	<span class="validity"></span>
+    	<br />
+    	<input type="submit" value="PDF Ausgabe erzeugen"/>
+	</form>
+
+	<script>
+
+		//Declare variables
+		var today = new Date();
+		
+		// Set values
+		$("#datePicker").val(getFormattedDate(today));
+		
+		// Get date formatted as YYYY-MM-DD
+		function getFormattedDate (date) {
+		    return date.getFullYear()
+		        + "-"
+		        + ("0" + (date.getMonth() + 1)).slice(-2)
+		        + "-"
+		        + ("0" + date.getDate()).slice(-2);
+		}
+	
+	</script>
+	</body>
+</html>
