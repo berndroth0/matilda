@@ -2,9 +2,12 @@ package at.wrk.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,32 +51,35 @@ public class MaterialtypController
 	
 	
     @RequestMapping(value="/materialtyp", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute Materialtyp materialtyp) {
+    public String addSpeichern(@ModelAttribute("materialtyp") @Valid Materialtyp materialtyp, BindingResult result) {
     	
     	Materialtyp existing = materialtypRepository.findByName(materialtyp.getName());
-		if(existing!=null )
+    	
+		if(existing!=null)
 		{	
-
-			return "redirect:/materialtyp?alert";
+			 result.rejectValue("name", null, "Es ist bereits ein Materialtyp mit gleichem Namen eingetragen");
 		}
-		else
-		{
-	    	materialtypRepository.save(materialtyp);
-	        return "redirect:/materialtypen?success";
-		}
+	    if (result.hasErrors()){
+	        return "materialtyp";
+	    }
+	    
+    	materialtypRepository.save(materialtyp);
+        return "redirect:/materialtypen?success";
     }
 	
 	// ************************************* Materialtyp Ändern ************************************
     
 	@RequestMapping(value="/materialtypupdate/{id}", method=RequestMethod.GET)
     public String aendernForm(@PathVariable("id") long id, Model model) {
+		
 		Materialtyp exicting = materialtypRepository.findById(id);
         model.addAttribute("materialtyp", exicting);
         return "materialtypupdate";
     }
 	
     @RequestMapping(value="/materialtypupdate/{id}", method=RequestMethod.POST)
-    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute Materialtyp materialtyp) {
+    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute("materialtyp") @Valid Materialtyp materialtyp,
+    		BindingResult result) {
     	
     	Materialtyp existing = materialtypRepository.findById(id);
     	Materialtyp andere = materialtypRepository.findByName(materialtyp.getName());
@@ -85,20 +91,28 @@ public class MaterialtypController
     		existing.setBeschreibung(materialtyp.getBeschreibung());
     		existing.setLink(materialtyp.getLink());
     		
-        	materialtypRepository.save(existing);       	
-        	return "redirect:/materialtypen?success";
-    	}
-    	else if(andere==null)
-    	{
-    		existing.setName(materialtyp.getName());
-    		existing.setMenge(materialtyp.getMenge());
-    		existing.setBeschreibung(materialtyp.getBeschreibung());
-    		existing.setLink(materialtyp.getLink());
+            if (result.hasErrors()){
+                return "materialtypupdate";
+            }
     		
         	materialtypRepository.save(existing);       	
         	return "redirect:/materialtypen?success";
     	}
-    	return "redirect:/materialtypupdate/{id}?alert";
+    	if(andere!=null)
+    	{
+    		result.rejectValue("name", null, "Es ist bereits ein Materialtyp mit gleichem Namen eingetragen");
+    	}
+        if (result.hasErrors()){
+            return "materialtypupdate";
+        }
+
+		existing.setName(materialtyp.getName());
+		existing.setMenge(materialtyp.getMenge());
+		existing.setBeschreibung(materialtyp.getBeschreibung());
+		existing.setLink(materialtyp.getLink());
+		
+    	materialtypRepository.save(existing);       	
+    	return "redirect:/materialtypen?success";
 	}    
     
 	// ************************************* Materialtyp Löschen ************************************
@@ -109,6 +123,5 @@ public class MaterialtypController
 		materialtypRepository.deleteById(id);
 		
 		return "redirect:/materialtypen?loeschen";
-	}
-    
+	}   
 }

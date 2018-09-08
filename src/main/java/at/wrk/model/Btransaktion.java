@@ -31,9 +31,6 @@ public class Btransaktion extends Audit
 		
 	private String art;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private LocalDate buchungsDatum;
-	
 	@ManyToOne
 	@JoinColumn(name="veranstaltung")
 	private Veranstaltung veranstaltung;

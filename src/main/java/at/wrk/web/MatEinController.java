@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -78,4 +79,39 @@ public class MatEinController
 			matEinRepository.save(materialtyp_einheitentyp);
 	        return "redirect:/materialeinheiten?success";		
     }	
+    
+	// ************************************* MatEin Ändern ************************************
+    
+	@RequestMapping(value="/mateinupdate/{id}", method=RequestMethod.GET)
+    public String aendernForm(@PathVariable("id") long id, Model model) {
+		Materialtyp_Einheitentyp exicting = matEinRepository.findById(id);
+		
+        model.addAttribute("materialtyp_einheitentyp", exicting);
+        return "mateinupdate";
+    }
+	
+    @RequestMapping(value="/mateinupdate/{id}", method=RequestMethod.POST)
+    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute Materialtyp_Einheitentyp materialtyp_einheitentyp) {
+    	
+    	Materialtyp_Einheitentyp existing = matEinRepository.findById(id);
+     	
+    		existing.setManzahl(materialtyp_einheitentyp.getManzahl());
+    		existing.setMaterialtyp(materialtyp_einheitentyp.getMaterialtyp());
+    		existing.setEanzahl(materialtyp_einheitentyp.getEanzahl());
+    		existing.setEinheitentyp(materialtyp_einheitentyp.getEinheitentyp());
+    		existing.setBeschreibung(materialtyp_einheitentyp.getBeschreibung());
+    		
+        	matEinRepository.save(existing);       	
+        	return "redirect:/materialeinheiten?success";
+	}   
+    
+	// ************************************* MatEin Löschen ************************************
+  
+	@RequestMapping(value="/mateinupdate/{id}/loeschen", method = RequestMethod.POST)
+	public String loeschen(@PathVariable("id") long id) 
+	{
+		matEinRepository.deleteById(id);
+		
+		return "redirect:/materialeinheiten?loeschen";
+	}
 }

@@ -12,7 +12,7 @@
 <body>
 <h2>Materialtyp List</h2>
 <form>
-<input type="button" value="ein neuen Materialtyp hinzuf&uuml;gen" onclick="window.location.href='materialtyp'" />
+<input type="button" value="einen neuen Materialtyp hinzuf&uuml;gen" onclick="window.location.href='materialtyp'" />
 </form>
 <div th:unless="${#lists.isEmpty(materialtypen)}">
 <table class="table table-striped">
@@ -53,9 +53,9 @@
                 <div class="alert alert-info">
                     Der  Materialtyp wurde erfolgreich gelöscht!
                 </div>
-            </div>
-            
+            </div>       
 </div>
+
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>

@@ -15,7 +15,7 @@ public interface IPDFRepository extends JpaRepository<Benutzer, Long>{
             + "INNER JOIN Lagerstandort l ON l.benutzer = b.id "
             + "INNER JOIN Material m ON m.lagerstandort = l.id "
             + "INNER JOIN Materialtyp mtyp ON mtyp.id = m.materialtyp "
-            + "WHERE m.einkaufsdatum = ?1 "
+            + "WHERE m.einkaufsdatum BETWEEN ?1 AND ?2 "
             + "GROUP BY v.name, b.anzeigename, l.name", nativeQuery = true)
-    List<?> findByDate(@Param("findAllByDate") Date date);
+    List<?> findByDate(@Param("findAllByDate") Date dateBeginn, Date dateEnde);
 }

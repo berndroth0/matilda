@@ -21,8 +21,8 @@ public class ApplicationPropertiesTest {
  
       @Test
       public void verifyPropertyServerPortIsAvailableInEnvironment() {
-              String serverPort = "server.port";
-              assertEquals("8080", env.getProperty(serverPort));
+    	  String serverPort = "server.port";
+    	  assertEquals("8080", env.getProperty(serverPort));
       }
 
       @Test

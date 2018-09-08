@@ -7,12 +7,23 @@
 <body>
 	<h1>Einen neuen Einheitentyp hinzuf&uuml;gen</h1>
     <form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
-    	<p>Name: <input type="text" th:field="*{name}" /></p>
-    	  <div th:if="${param.alert}">
-		<div class="alert alert-info">
-		Es gibt schon ein Einheitentyp mit gleichen Namen!
-		</div>
-		</div>
+    
+	    <p class="error-message"
+	    th:if="${#fields.hasGlobalErrors()}"
+	    th:each="error : ${#fields.errors('global')}"
+ 		th:text="${error}">Validation error</p>
+                   
+		<div class="form-group"
+        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+        <label for="name" class="control-label">Name</label>
+        <input id="name"
+        class="form-control"
+        th:field="*{name}"/>
+        <p class="error-message"
+       	th:each="error: ${#fields.errors('name')}"
+        th:text="${error}">Validation error</p>
+       	</div>
+		
         <p><input type="submit" value="Submit" /> </p>
     </form>
 </body>

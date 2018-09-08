@@ -14,20 +14,25 @@
 
 	<h1 align="center">Report f&uuml;r informative Ansichten</h1>
 
-	<form action="#" th:action="@{/pdf}" method="post"> 
-    	<div><input name="datePicker" id="datePicker" type="date" min="1900-01-01" required></div>
+	<form name="datePickerForm" action="#" th:action="@{/pdf}" method="post" onsubmit="event.preventDefault(); validateForm();"> 
+    	<div>
+    		<p>Beginn:	<input name="datePickerBeginn" id="datePickerBeginn" type="date" min="1900-01-01" required></p>
+    	</div>
+		<div>
+    		<p>Ende: 	<input name="datePickerEnde" id="datePickerEnde" type="date" min="1900-01-01" required></p>
+    	</div>
     	<span class="validity"></span>
     	<br />
     	<input type="submit" value="PDF Ausgabe erzeugen"/>
 	</form>
 
 	<script>
-
 		//Declare variables
 		var today = new Date();
 		
 		// Set values
-		$("#datePicker").val(getFormattedDate(today));
+		$("#datePickerBeginn").val(getFormattedDate(today));
+		$("#datePickerEnde").val(getFormattedDate(today));
 		
 		// Get date formatted as YYYY-MM-DD
 		function getFormattedDate (date) {
@@ -37,7 +42,21 @@
 		        + "-"
 		        + ("0" + date.getDate()).slice(-2);
 		}
-	
+		
+		function validateForm() {
+			var dateBeginn = new Date($('input[name="datePickerBeginn"]').val());
+			var dateEnde = new Date($('input[name="datePickerEnde"]').val());
+			
+			if (dateBeginn.getTime() > dateEnde.getTime()) 
+			{
+				alert('Ende Datum muss gr&ouml;sser oder gleich Beginn Datum sein!');
+		        returnToPreviousPage();
+		    }
+			else
+			{
+				document.forms['datePickerForm'].submit();
+			}
+		 }
 	</script>
 	</body>
 </html>

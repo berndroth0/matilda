@@ -2,9 +2,12 @@ package at.wrk.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,16 +64,17 @@ public class LagerstandortController
     }
 	
     @RequestMapping(value="/lagerstandort", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute Lagerstandort lagerstandort) {
+    public String addSpeichern(@ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort, BindingResult result) {
   	    	
     	Lagerstandort existing =  lagerstandortRepository.findByName(lagerstandort.getName());
     	
-    	
-		if(existing!=null )
+    	if(existing!=null )
 		{	
-			return "redirect:/lagerstandort?alert";
+			 result.rejectValue("name", null, "Es ist bereits ein Lagerstandort mit gleichem Namen eingetragen");
 		}
-		
+        if (result.hasErrors()){
+            return "lagerstandort";
+        }		
 		else
 		{
 			lagerstandortRepository.save(lagerstandort);
@@ -88,7 +92,8 @@ public class LagerstandortController
     }
 	
     @RequestMapping(value="/lagerstandortupdate/{id}", method=RequestMethod.POST)
-    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute Lagerstandort lagerstandort) {
+    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort,
+    		BindingResult result) {
     	
     	Lagerstandort existing = lagerstandortRepository.findById(id);
     	Lagerstandort andere = lagerstandortRepository.findByName(lagerstandort.getName());
@@ -100,20 +105,28 @@ public class LagerstandortController
     		existing.setBeschreibung(lagerstandort.getBeschreibung());
     		existing.setBenutzer(lagerstandort.getBenutzer());
     		
+            if (result.hasErrors()){
+                return "lagerstandortupdate";
+            }
+    		
     		lagerstandortRepository.save(existing);       	
         	return "redirect:/lagerstandorten?success";
     	}
-    	else if(andere==null)
+    	if(andere!=null)
     	{
-     		existing.setName(lagerstandort.getName());
-    		existing.setAdresse(lagerstandort.getAdresse());
-    		existing.setBeschreibung(lagerstandort.getBeschreibung());
-    		existing.setBenutzer(lagerstandort.getBenutzer());
-    		
-        	lagerstandortRepository.save(existing);       	
-        	return "redirect:/lagerstandorten?success";
+    		result.rejectValue("name", null, "Es ist bereits ein Lagerstandort mit gleichem Namen eingetragen");
     	}
-    	return "redirect:/lagerstandortupdate/{id}?alert";
+        if (result.hasErrors()){
+            return "lagerstandortupdate";
+        }
+
+ 		existing.setName(lagerstandort.getName());
+		existing.setAdresse(lagerstandort.getAdresse());
+		existing.setBeschreibung(lagerstandort.getBeschreibung());
+		existing.setBenutzer(lagerstandort.getBenutzer());
+		
+    	lagerstandortRepository.save(existing);       	
+    	return "redirect:/lagerstandorten?success";
 	}    
 
 	// ************************************* Lagerstandort Löschen ************************************

@@ -2,9 +2,12 @@ package at.wrk.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,18 +50,20 @@ public class EinheitentypController
     }
 	
     @RequestMapping(value="/einheitentyp", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute Einheitentyp einheitentyp) {
+    public String addSpeichern(@ModelAttribute("einheitentyp") @Valid Einheitentyp einheitentyp, BindingResult result) {
     	
     	Einheitentyp existing =  einheitentypRepository.findByName(einheitentyp.getName());
+    	
 		if(existing!=null )
 		{	
-			return "redirect:/einheitentyp?alert";
+			 result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
 		}
-		else
-		{
-			einheitentypRepository.save(einheitentyp);
-	        return "redirect:/einheitentypen?success";
-		}
+        if (result.hasErrors()){
+            return "einheitentyp";
+        }
+
+		einheitentypRepository.save(einheitentyp);
+        return "redirect:/einheitentypen?success";		
     }
 	
 	// ************************************* Einheitentyp Ändern ************************************
@@ -71,25 +76,27 @@ public class EinheitentypController
     }
 	
     @RequestMapping(value="/einheitentypupdate/{id}", method=RequestMethod.POST)
-    public String aendernSepeichern(@PathVariable("id") long id, @ModelAttribute Einheitentyp einheitentyp) {
+    public String aendernSepeichern(@PathVariable("id") long id, @ModelAttribute("einheitentyp") @Valid Einheitentyp einheitentyp, BindingResult result) {
     	
     	Einheitentyp existing = einheitentypRepository.findById(id);
     	Einheitentyp andere = einheitentypRepository.findByName(einheitentyp.getName());
      	
     	if(einheitentyp.getName().equals(existing.getName()))		
     	{   		 
-        	return "redirect:/einheitentypen";
+        	return "redirect:/einheitentypen?nochange";
     	}
-    	else if(andere==null)
+    	if(andere!=null)
     	{
-    		existing.setName(einheitentyp.getName());
-    		
-    		einheitentypRepository.save(existing);       	
-        	return "redirect:/einheitentypen?success";
+    		result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
     	}
-    	
-    	System.out.println(andere.getName());
-    	return "redirect:/einheitentypupdate/{id}?alert";
+        if (result.hasErrors()){
+            return "einheitentypupdate";
+        }
+        
+		existing.setName(einheitentyp.getName());
+		
+		einheitentypRepository.save(existing);       	
+    	return "redirect:/einheitentypen?success";
 	}    
     
 	// ************************************* Einheitentyp Löschen ************************************

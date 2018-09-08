@@ -1,6 +1,6 @@
 package at.wrk.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.apache.tomcat.jni.Local;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,16 +36,25 @@ public class Material extends Audit
 	private Materialtyp materialtyp;
 	
 	private String seriennummer;
-	private Date einkaufsdatum, letztesudatum, naechsteudatum;
-	private boolean einsatzbereitschaft;
-	private int anzahl;
 	
-	public Material()
-	{
-		super();
-	}
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate einkaufsdatum;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate letztesudatum;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate naechstesudatum;
+	
+	private boolean einsatzbereitschaft;
+	
+	private int bestand;
+
 	public boolean isEinsatzbereitschaft()
 	{
 		return einsatzbereitschaft;
+	}
+
+	public Material()
+	{
+		super();
 	}
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Material-Einheitentyp Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Material-Einheitentyp</h1>
+    <form action="#" th:action="@{/mateinupdate/{id}(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post">
+    	
+    	<p>Anzahl: <input type="number" th:field="*{manzahl}" /></p>
+	    <p> Materialtyp:
+        <select th:field="*{materialtyp}">
+  			<option th:each="materialtyp : ${alleMaterialtypen}" 
+         	 th:value="${materialtyp.id}" 
+       	     th:text="${materialtyp.name}"></option>
+		</select></p>
+		
+		<p>Anzahl: <input type="number" th:field="*{eanzahl}" /></p>		
+        <p> Einheitentyp:
+        <select th:field="*{einheitentyp}">
+  			<option th:each="einheitentyp : ${alleEinheitentypen}" 
+         	 th:value="${einheitentyp.id}" 
+       	     th:text="${einheitentyp.name}"></option>
+		</select></p>	
+		<p>Beschreibung: <input type="text" th:field="*{beschreibung}" /></p>	
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    <form th:action="@{/mateinupdate/{id}/loeschen(id=${materialtyp_einheitentyp.id})}" th:object="${materialtyp_einheitentyp}" method="post" >
+		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+	</form>
+    	</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

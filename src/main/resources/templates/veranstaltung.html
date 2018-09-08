@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Veranstaltung</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Eine neue Veranstaltung hinzuf&uuml;gen</h1>
+    <form action="#" th:action="@{/veranstaltung}" th:object="${veranstaltung}" method="post">
+    	<p>Name: <input type="text" th:field="*{name}" /></p>
+    	<div th:if="${param.alert}">
+		<div class="alert alert-info">
+		Es gibt schon eine Veranstaltung mit gleichen Namen!
+		</div>
+		</div>
+    	<p>Beginn:<input type="date" th:field="*{beginn}" /></p>
+    	<p>Ende:<input type="date" th:field="*{ende}" /></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+</body>
+</html>

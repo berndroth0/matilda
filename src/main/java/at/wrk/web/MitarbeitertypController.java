@@ -2,9 +2,12 @@ package at.wrk.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,18 +49,19 @@ public class MitarbeitertypController
     }
 	
     @RequestMapping(value="/mitarbeitertyp", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute Mitarbeitertyp mitarbeitertyp) {
+    public String addSpeichern(@ModelAttribute("mitarbeitertyp") @Valid Mitarbeitertyp mitarbeitertyp, BindingResult result) {
     	
     	Mitarbeitertyp existing =  mitarbeitertypRepository.findByKuerzel(mitarbeitertyp.getKuerzel());
 		if(existing!=null )
 		{	
-			return "redirect:/mitarbeitertyp?alert";
+			 result.rejectValue("kuerzel", null, "Es ist bereits ein Mitarbeitertyp mit gleichem Kürzel eingetragen");
 		}
-		else
-		{
-			mitarbeitertypRepository.save(mitarbeitertyp);
-	        return "redirect:/mitarbeitertypen?success";
-		}
+	    if (result.hasErrors()){
+	        return "mitarbeitertyp";
+	    }
+	    
+		mitarbeitertypRepository.save(mitarbeitertyp);
+        return "redirect:/mitarbeitertypen?success";	
     }
     
 	// ************************************* Mitarbeitertyp Ändern ************************************
@@ -70,7 +74,8 @@ public class MitarbeitertypController
     }
 	
     @RequestMapping(value="/mitarbeitertypupdate/{id}", method=RequestMethod.POST)
-    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute Mitarbeitertyp mitarbeitertyp) {
+    public String aendernSpeichern(@PathVariable("id") long id, @ModelAttribute("mitarbeitertyp") @Valid Mitarbeitertyp mitarbeitertyp,
+    		BindingResult result) {
     	
     	Mitarbeitertyp existing = mitarbeitertypRepository.findById(id);
     	Mitarbeitertyp andere = mitarbeitertypRepository.findByKuerzel(mitarbeitertyp.getKuerzel());
@@ -80,20 +85,27 @@ public class MitarbeitertypController
     		existing.setKuerzel(mitarbeitertyp.getKuerzel());
     		existing.setName(mitarbeitertyp.getName());
     		
+            if (result.hasErrors()){
+                return "mitarbeitertypupdate";
+            }
+    		
     		mitarbeitertypRepository.save(existing);       	
         	return "redirect:/mitarbeitertypen?success";
     	}
-    	else if(andere==null)
+    	if(andere!=null)
     	{
-    		existing.setKuerzel(mitarbeitertyp.getKuerzel());
-    		existing.setName(mitarbeitertyp.getName());
-    		
-        	mitarbeitertypRepository.save(existing);       	
-        	return "redirect:/mitarbeitertypen?success";
+    		result.rejectValue("kuerzel", null, "Es ist bereits ein Mitarbeitertyp mit gleichem Namen eingetragen");
     	}
+        if (result.hasErrors()){
+            return "mitarbeitertypupdate";
+        }
+        
+		existing.setKuerzel(mitarbeitertyp.getKuerzel());
+		existing.setName(mitarbeitertyp.getName());
+		
+    	mitarbeitertypRepository.save(existing);       	
+    	return "redirect:/mitarbeitertypen?success";
     	
-    	System.out.println(andere.getName());
-    	return "redirect:/mitarbeitertypupdate/{id}?alert";
 	}   
     
 	// ************************************* Einheitentyp Löschen ************************************

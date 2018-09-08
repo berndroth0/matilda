@@ -36,7 +36,6 @@ public class Ntransaktion extends Audit
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate lieferungsDatum;
 	
-	@NotEmpty
 	private String beschreibung;
 
 	public Ntransaktion(Material material)

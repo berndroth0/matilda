@@ -21,11 +21,12 @@ public class PDFController {
     private IPDFRepository pdfRepository;
 
     @RequestMapping(path = "/pdf", method = RequestMethod.POST)
-    public ModelAndView report(@RequestParam("datePicker") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public ModelAndView report(	@RequestParam("datePickerBeginn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateBeginn,
+    							@RequestParam("datePickerEnde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnde) {
         
         Map<String, Object> model = new HashMap<>();
 
-        List<?> benutzer = pdfRepository.findByDate(date);
+        List<?> benutzer = pdfRepository.findByDate(dateBeginn, dateEnde);
         model.put("benutzer", benutzer);
 
         return new ModelAndView(new MyPdfView(), model);

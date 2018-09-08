@@ -11,12 +11,17 @@
 </head>
 <body>
 <h2>Aktuelle Materialen in</h2>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    Der neue Mitarbeitertyp wurde erfolgreich eingetragen!
+                </div>
+            </div>
 <div th:unless="${#lists.isEmpty(materialen)}">
 <table class="table table-striped">
 <thead>
 <tr>
 <th>Material</th>
-<th>Anzahl</th>
+<th>Bestand</th>
 <th>Seriennummer</th>
 <th>Einkaufsdatum</th>
 <th>Letzte Überprüfungsdatum</th>
@@ -27,14 +32,20 @@
 <dl th:each="material : ${materialen}">
 <tr>
 <td th:text="${material.materialtyp.name}"></td>
-<td th:text="${material.anzahl}"></td>
+<td th:text="${material.bestand}"></td>
 <td th:text="${material.seriennummer}"></td>
 <td th:text="${material.einkaufsdatum}"></td>
 <td th:text="${material.letztesudatum}"></td>
-<td th:text="${material.naechsteudatum}"></td>
+<td th:text="${material.naechstesudatum}"></td>
 <td th:text="${material.einsatzbereitschaft}"></td>
 <td>
-<a href="#" data-th-href="@{/materialupdate/{id}(id=${materialtyp.id})}">Ei</a>
+<a href="#" data-th-href="@{/ntransaktion/{id}(id=${material.id})}">Lieferung(Eingabe/Ausgabe)</a>
+</td>
+<td>
+<a href="#" data-th-href="@{/btransaktion/{id}(id=${material.id})}">Buchen/Abbestellen</a>
+</td>
+<td>
+<a href="#" data-th-href="@{/inventur/{id}(id=${material.id})}">Inventur</a>
 </td>
 </tr>
 </table>
@@ -43,20 +54,48 @@
 <p>Es gibt kein Material in diesem Lager</p>
 </div>
 <hr/>
-
-
-<p> ein neues Material in diesem Lager hinzufügen </p>
-
-
-
-
+<form action="#" th:action="@{/materialen}" th:object="${material}" method="post">
+    	<p> Materialtyp:
+        <select th:field="*{materialtyp}">
+  			<option th:each="materialtyp : ${alleMaterialtypen}" 
+         	 th:value="${materialtyp.id}" 
+       	     th:text="${materialtyp.name}"></option>
+		</select></p>
+		
+<!--	<p> Lagerstandort:
+ 		<select th:field="*{lagerstandort}">
+  			<option th:each="lagerstandort : ${alleLagerstandorten}" 
+         	 th:value="${lagerstandort.id}" 
+       	     th:text="${lagerstandort.name}"></option>
+		</select></p> -->
+		
+    	<p>Seriennummer: <input type="text" th:field="*{seriennummer}" /></p>
+    	<p>Bestand: <input type="number" th:field="*{bestand}" /></p>
+    	<div th:if="${param.nobestand}">
+		<div class="alert alert-info">
+		Bestand kann nicht ein negatives Wert haben.
+		</div>
+		</div>   	
+    	<p>Einkaufsdatum: <input type="date" th:field="*{einkaufsdatum}" /></p>
+    	<p>Letztes Überprüfungsdatum:<input type="date" th:field="*{letztesudatum}" /></p>
+    	<p>Nächstes Überprüfungsdatum:<input type="date" th:field="*{naechstesudatum}" /></p>
+    	<p>Einsatzbereitschaft: <input type="checkbox" th:field="*{einsatzbereitschaft}" />
+    	
+        <p><input type="submit" value="Submit" /> </p>
+</form>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
             <div th:if="${param.nomaterial}">
                 <div class="alert alert-info">
-                    Es Gibt kein Material in diesem Lager
+                    Es Gibt kein Material in diesem Lager!
+                </div>
+            </div>
+            
+            <div th:if="${param.nerfolgreich}">
+                <div class="alert alert-info">
+                    Der Lieferschein wurde erflogreich eingetragen!
                 </div>
             </div>
 

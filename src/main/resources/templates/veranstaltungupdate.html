@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Materialtyp Aktualisieren</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Veranstaltung</h1>
+    <form action="#" th:action="@{/veranstaltungupdate/{id}(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post">
+    	<p>name: <input type="text" th:field="*{name}" /></p>
+    	<div th:if="${param.alert}">
+		<div class="alert alert-info">
+		Es gibt schon eine Veranstaltung mit gleichen Namen!
+		</div>
+		</div>
+		<p>Beginn:<input type="date" th:field="*{beginn}" /></p>
+    	<p>Ende:<input type="date" th:field="*{ende}" /></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+    <form th:action="@{/veranstaltungupdate/{id}/loeschen(id=${veranstaltung.id})}" th:object="${veranstaltung}" method="post" >
+		<button type="submit" onclick="return Confirm('sicher?')">L&ouml;schen</button>
+	</form>
+		</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

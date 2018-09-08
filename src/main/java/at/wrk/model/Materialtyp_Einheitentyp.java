@@ -19,13 +19,19 @@ public class Materialtyp_Einheitentyp extends Audit
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	private int manzahl;
+	
 	@ManyToOne
 	@JoinColumn(name="materialtyp")
 	private Materialtyp materialtyp;
 	
+	private int eanzahl;
+	
 	@ManyToOne
 	@JoinColumn(name="einheitentyp")
 	private Einheitentyp einheitentyp;
+	
+	private String beschreibung;
 	
 	public Materialtyp_Einheitentyp()
 	{

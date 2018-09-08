@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +16,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class Einheitentyp {
-
+public class Einheitentyp extends Audit
+{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private long id;
+	
+	@NotEmpty
+	@Size(min=2, max=20)
 	private String name;
+	
+	public Einheitentyp()
+	{
+		super();
+	}
 }
