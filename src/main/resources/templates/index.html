@@ -13,7 +13,28 @@
 <body>
 <div class="container">
     <h1>Spring Security User Registration with Hibernate and Thymeleaf</h1>
+    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 </div>
+
+
+<p>The following users are currently logged in:</p>
+
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>Benutzername</th>
+<th>Anzeigename</th>
+<th>Dienstnummer</th>
+</tr>
+</thead>
+<dl th:each="user : ${loggedInUser}">
+<tr>
+<td th:text="${user.username}">benutzername</td>
+<td th:text="${user.username}">benutzername</td>
+<td th:text="${user.getUsername()}">benutzername</td>
+</tr>
+</table>
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>

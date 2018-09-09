@@ -1,8 +1,11 @@
 package at.wrk.web;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,9 @@ import at.wrk.repository.UserRepository;
 public class UserController
 {
 	private UserRepository userRepository;
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
 	
 	@Autowired
 	public UserController(UserRepository userRepository)
@@ -42,7 +48,6 @@ public class UserController
 		
 		return "redirect:/users";
 	}
-	
 	
 //	@RequestMapping(value="/{benutzername}" , method=RequestMethod.POST)
 //	public String addToUserList(@PathVariable("benutzername") String benutzername, Benutzer benutzer)
