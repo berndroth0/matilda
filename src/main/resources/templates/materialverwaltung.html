@@ -10,7 +10,7 @@
 <title>Material</title>
 </head>
 <body>
-<h2>Aktuelle Materialen in</h2>
+<h2>Aktuelle Materialien</h2>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
                     Der neue Mitarbeitertyp wurde erfolgreich eingetragen!
@@ -73,7 +73,7 @@
     	<p>Bestand: <input type="number" th:field="*{bestand}" /></p>
     	<div th:if="${param.nobestand}">
 		<div class="alert alert-info">
-		Bestand kann nicht ein negatives Wert haben.
+		Bestand kann keinen negativen Wert haben.
 		</div>
 		</div>   	
     	<p>Einkaufsdatum: <input type="date" th:field="*{einkaufsdatum}" /></p>
