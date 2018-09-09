@@ -29,13 +29,37 @@ public class RegistrationWebsiteTest {
     
     @Test
     public void shouldReturnStatusOkIfStringContainsBenutzername() throws Exception {
-        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Benutzername")));
     }
 	    
     @Test
     public void shouldReturnStatusOkIfStringContainsPassword() throws Exception {
-        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Password")));
-    }	
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Passwort")));
+    }
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsDienstnummer() throws Exception {
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Dienstnummer")));
+    }
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsAnzeigename() throws Exception {
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Anzeigename")));
+    }
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsBestBenutzername() throws Exception {
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Bestätigungs-Passwort")));
+    }
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsRollen() throws Exception {
+        this.mockMvc.perform(get("/registration")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Rollen")));
+    }
 }
