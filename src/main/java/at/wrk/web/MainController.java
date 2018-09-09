@@ -17,13 +17,13 @@ public class MainController {
 	
     @GetMapping("/")
     public String root(Model model) {
-    	
+
+    	//show all current logged in users
 		List<Object> loggedUsers = sessionRegistry.getAllPrincipals();
 		for (Object principal : loggedUsers) {
 			final User loggedUser = (User) principal;
 			model.addAttribute("loggedInUser", loggedUsers); 
 		}
-    	
         return "index";
     }
 

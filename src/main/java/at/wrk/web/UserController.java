@@ -21,9 +21,6 @@ public class UserController
 	private UserRepository userRepository;
 	
 	@Autowired
-	private SessionRegistry sessionRegistry;
-	
-	@Autowired
 	public UserController(UserRepository userRepository)
 	{
 		this.userRepository = userRepository;
