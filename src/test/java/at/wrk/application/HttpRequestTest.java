@@ -29,7 +29,7 @@ public class HttpRequestTest {
     }
     
     @Test
-    public void testUserSite() throws Exception {
+    public void testUserSiteBenutzername() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
                 String.class)).contains("Benutzername");
     }

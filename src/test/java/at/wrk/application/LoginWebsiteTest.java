@@ -32,5 +32,10 @@ public class LoginWebsiteTest {
         this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Benutzername")));
     }
-	
+    
+    @Test
+    public void shouldReturnStatusOkIfStringContainsPassword() throws Exception {
+        this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Password")));
+    }	
 }

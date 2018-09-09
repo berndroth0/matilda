@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import at.wrk.repository.LagerstandortRepository;
+import at.wrk.repository.UserRepository;
 import at.wrk.web.LagerstandortController;
 
 @RunWith(SpringRunner.class)
@@ -15,12 +17,20 @@ import at.wrk.web.LagerstandortController;
 public class LagerstandortControllerTest {
 	@Autowired
 	private LagerstandortController lagerstandortController;
+	
+	@Autowired
+	private LagerstandortRepository lagerstandortRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
-	//Simple test whether MainController isNotNull
+	//Simple test whether LagerstandortController, LagerstandortRepository,User Repository and isNotNull
 	
 	@Test
 	public void contexLoads() throws Exception
 	{
 		assertThat(lagerstandortController).isNotNull();
+		assertThat(lagerstandortRepository).isNotNull();
+		assertThat(userRepository).isNotNull();
 	}
 }
