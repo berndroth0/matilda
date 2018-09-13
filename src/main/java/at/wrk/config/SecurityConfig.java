@@ -24,11 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+	@Autowired
+	CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                     .antMatchers(
+                    		"/",
                             "/registration**",
                             "/js/**",
                             "/css/**",
@@ -41,11 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             .permitAll()
                 .and()
                     .logout()
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout")
-                .permitAll()
+                    .logoutSuccessHandler(customLogoutSuccessHandler)
+                    .permitAll()
                 .and()
                 	.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
     }

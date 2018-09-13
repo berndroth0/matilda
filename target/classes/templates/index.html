@@ -18,9 +18,10 @@
 
 
 <p>The following users are currently logged in:</p>
-
-    <a href="/logout" />Logout</a>
-
+	<a style="color: blue" th:href="@{/}">Home</a>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
 
 <table class="table table-striped">
 <thead>
