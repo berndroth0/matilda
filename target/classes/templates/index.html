@@ -1,21 +1,80 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+		
+		<title>Hauptseite Matilda</title>
+	</head>
+	
+	<body>
+		<header>
+		<nav>
+		<div class="topnav" id="myTopnav">
+		<!--	<img class="logo" src="./Pictures/WRK_Logo.jpg" alt="Logo"> -->
+			<a href="#matilda" class="active">MATILDA</a>
+			<div class="dropdown">
+			 <button class="dropbtn">Material
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="#">Material buchen</a>
+				<a href="#">Material reservieren</a>
+				<a href="#">Bestand ansehen</a>
+			 </div>
+			</div>
+			
+			<div class="dropdown">
+			 <button class="dropbtn">Veranstaltungen
+				<i class="fa fa-caret-down"></i>
+			 </button>
+			 <div class="dropdown-content">
+				<a href="veranstaltung">Veranstaltung erstellen</a>
+				<a href="">Veranstaltung löschen</a>
+				<a href="#">Veranstaltungen ansehen</a>
+			 </div>
+			</div>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<div class="dropdownAdmin">
+				<button class="dropbtnAdmin">Admin
+					<i class="fa fa-caret-down"></i>
+			 	</button>
+				<div class="dropdown-content-admin">
+					<a href="mitarbeiterverwaltung">Mitarbeiterverwaltung</a>
+					<a href="registration">Benutzerregistrierung</a>
+				</div>
+			</div>
+		</div>
+			
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+				
+		</div>
+		</nav>
+		</header>
 
-    <title>Registration</title>
-</head>
-<body>
-<div class="container">
+		<script>
+			function myFunction() {
+				var x = document.getElementById("myTopnav");
+				if (x.className === "topnav") {
+					x.className += " responsive";
+				} else {
+					x.className = "topnav";
+				}
+			}
+		</script>
+		
+		<footer>
+		<div class="footer">
+			<a href="#Impressum" class="footerText">Impressum</a>
+		</div>
+		</footer>
+		
+	<div class="container">
     <h1>Spring Security User Registration with Hibernate and Thymeleaf</h1>
     <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 </div>
-
 
 <p>The following users are currently logged in:</p>
 	<a style="color: blue" th:href="@{/}">Home</a>
@@ -39,8 +98,22 @@
 </tr>
 </table>
 
-<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+        Authenticated username:
+        <div sec:authentication="name"></div>
+        Authenticated user roles:
+        <div sec:authentication="principal.authorities"></div>
+        
+
+<div sec:authorize="isAuthenticated()">
+  This content is only shown to authenticated users.
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+  This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+  This content is only shown to users.
+</div>
+<div sec:authorize="hasAuthority('ADMIN')">Only for admin</div>
 
 </body>
 </html>

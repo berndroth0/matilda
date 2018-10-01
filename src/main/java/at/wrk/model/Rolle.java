@@ -11,11 +11,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "bezeichnung"))
+//@Table(uniqueConstraints = @UniqueConstraint(columnNames = "bezeichnung"))
 public class Rolle extends Audit {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String bezeichnung;
 	

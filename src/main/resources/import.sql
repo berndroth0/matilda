@@ -1,15 +1,17 @@
--- Verpflichtend beim Hochfahren
--- Benutzer und Rollen
-INSERT INTO benutzer(id, created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (nextval('benutzer_idbenutzer_seq'), now(), 'ADMIN', 'ADMIN', '', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
 -- Rollen
-INSERT INTO rolle(id, created_at, bezeichnung) VALUES (nextval('benutzer_idbenutzer_seq'), now(), 'ADMIN');
-INSERT INTO rolle(id, created_at, bezeichnung) VALUES (nextval('benutzer_idbenutzer_seq'), now(), 'SUPERVISOR');
-INSERT INTO rolle(id, created_at, bezeichnung) VALUES (nextval('benutzer_idbenutzer_seq'), now(), 'BENUTZER');
--- Benutzer und Rollen
--- Verpflichtend beim Hochfahren
+INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'ADMIN');
+INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'SUPERVISOR');
+INSERT INTO rolle(created_at, bezeichnung) VALUES (now(), 'BENUTZER');
+-- Rollen
 
--- Testdaten für JUnit Tests
-INSERT INTO lagerstandort(id, benutzer) VALUES(1, 1);
-INSERT INTO material(id, bestand, einsatzbereitschaft, lagerstandort, einkaufsdatum) VALUES(1, 1, true, 1, '2018-09-02');
-INSERT INTO materialtyp(id, name) VALUES(1, 'Schraube');
--- Testdaten für JUnit Tests
+INSERT INTO benutzer(created_at, anzeigename, benutzername, dienstnummer, passwort) VALUES (now(), 'ADMIN', 'ADMIN', 'ADMIN', '$2a$10$eoJXaB5sKquqydjBbkxiHOIT7iowKUI6A2HUfpyYTrwaibJ5SfPFW');
+INSERT INTO benutzer_rolle(benutzer_id,rolle_id) VALUES (1,1);
+
+-- TEST -----------------------------
+
+INSERT INTO veranstaltung (name,zustand) VALUES ('Wien 2012','Frei');
+INSERT INTO veranstaltung (name,zustand) VALUES ('Steiermark 2012','Frei');
+INSERT INTO einheitentyp (name) VALUES ('TRI');
+INSERT INTO materialtyp (name,menge) VALUES ('Asprin','Stuck');
+INSERT INTO mitarbeitertyp (kuerzel,name) VALUES ('ZYZ','Zebra Y Zebra');
+INSERT INTO lagerstandort (name,adresse,benutzer) VALUES ('Wien-Kenyongasse','Kenyongasse 100',1);

@@ -16,6 +16,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import at.wrk.service.UserService;
+import at.wrk.web.LoggingAccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LoggingAccessDeniedHandler accessDeniedHandler;
 
 	@Autowired
 	CustomLogoutSuccessHandler customLogoutSuccessHandler;
@@ -33,22 +37,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers(
                     		"/",
-                            "/registration**",
                             "/js/**",
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
+                    .antMatchers("/registration/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
                         .loginPage("/login")
                             .permitAll()
                 .and()
-                    .logout()
-                    .logoutSuccessHandler(customLogoutSuccessHandler)
+                	.logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
                     .permitAll()
-                .and()
-                	.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
+               .and()
+               	.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
+//                .and()
+//                	.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
+//        http.logout().    
+//		logoutUrl("/logout").
+//		logoutSuccessHandler(customLogoutSuccessHandler); 
+        
     }
     
     @Bean
@@ -78,5 +92,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
 }

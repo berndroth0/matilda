@@ -5,7 +5,7 @@ body {
 /* Navbar container */
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #b60e0c;
   font-family: Arial;
 }
 
@@ -28,7 +28,7 @@ body {
 
 /* das MATILDA "Logo" das zur Hauptseite zurückführt */
 .active {
-  background-color: #4CAF50;
+  background-color: #b60e0c;
   color: white;
 }
 
@@ -56,7 +56,7 @@ body {
   outline: none;
   color: white;
   padding: 14px 16px;
-  background-color: inherit;
+  background-color: #b60e0c;
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
 }
@@ -68,7 +68,7 @@ body {
   outline: none;
   color: white;
   padding: 14px 90px;
-  background-color: inherit;
+  background-color: #b60e0c;
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
  }
@@ -147,6 +147,14 @@ body {
   display: block;
 }
   
+  
+  
+  
+  
+  
+  
+  
+  
  /* zur Darstellung auf verschiedenen Bildschirmgrößen */
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
@@ -184,12 +192,46 @@ body {
 	bottom: 0;
 	width: 100%;
 	height: 4rem;
-	color: #f2f2f2;
-	background-color: #333;
+	background-color: #AAA;
 	text-align: center;
   }
 .footerText{
-	color: white;
-	position: absolute;
+	color: black;
+	position: center;
 	
 }
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

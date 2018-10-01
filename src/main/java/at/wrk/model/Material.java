@@ -24,7 +24,7 @@ import lombok.Setter;
 public class Material extends Audit
 {
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@ManyToOne

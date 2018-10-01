@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buchung</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	
+    <form action="#" th:action="@{/buchung/{id}(id=${buchung.material.id})}" th:object="${buchung}" method="post">
+    
+     <h3>Aktuell</h3> 
+     <table>
+  		<tr>
+		    <th>Material</th>
+		    <th>Akt.Bestand</th> 
+		    <th>Seriennummer</th>
+		    <th>Lager</th>  
+		  </tr>
+		  <tr>
+		    <td th:text="${buchung.material.materialtyp.name}"></td>
+		    <td th:text="${buchung.material.bestand}"></td>
+		    <td th:text="${buchung.material.seriennummer}"></td>
+		    <td th:text="${buchung.material.lagerstandort.name}"></td>
+		 </tr>
+     </table>
+     
+	<h3>Buchungsschein</h3>
+	 <p>Art:
+		  <input type="radio"
+           value="buchen"
+           th:field="*{art}"/> Buchen 
+           <input type="radio"
+           value="stornieren"
+           th:field="*{art}"/> Stornieren 
+           
+	    <div th:if="${param.noart}">
+		Keine Buchungsart ausgewählt
+		</div>
+     <p>Menge: <input type="number" th:field="*{menge}" /></p>  
+     	<div th:if="${param.nomaterial}">
+		Nicht genug Material im Lager.
+		</div>   
+		<div th:if="${param.menge}">
+		Menge muss größer als 0 sein
+		</div>
+     <p>beschreibung: <input type="text" th:field="*{beschreibung}" /></p>
+			
+     <p><input type="submit" value="Submit" /> </p>
+    </form>
+    
+		</br>
+	<button onclick="goBack()">Abbrechen</button>
+	<script>
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+</body>
+</html>

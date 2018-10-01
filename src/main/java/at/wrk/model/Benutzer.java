@@ -21,10 +21,7 @@ public class Benutzer extends Audit
 {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="benutzer_idbenutzer_seq")
-    	@SequenceGenerator(name="benutzer_idbenutzer_seq",
-    	sequenceName="benutzer_idbenutzer_seq",
-    	allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	private String benutzername;

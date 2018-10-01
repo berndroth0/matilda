@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
@@ -18,7 +19,7 @@ import lombok.Setter;
 public class Mitarbeitertyp_Einheitentyp extends Audit
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Positive
@@ -40,5 +41,11 @@ public class Mitarbeitertyp_Einheitentyp extends Audit
 	public Mitarbeitertyp_Einheitentyp()
 	{
 		super();
+	}
+	
+	public Mitarbeitertyp_Einheitentyp(Einheitentyp einheitentyp)
+	{
+		super();
+		this.einheitentyp= einheitentyp;
 	}
 }

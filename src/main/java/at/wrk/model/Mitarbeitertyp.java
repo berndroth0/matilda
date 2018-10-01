@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -19,14 +21,14 @@ import lombok.Setter;
 public class Mitarbeitertyp extends Audit
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(min=2, max=20)
 	private String kuerzel;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(min=2, max=20)
 	private String name;
 	

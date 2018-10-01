@@ -32,10 +32,13 @@ public class MainController {
         return "login";
     }
     
-
     @GetMapping("/user")
     public String userIndex() {
         return "user/index";
     }
     
+    @GetMapping("/error/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }    
 }
