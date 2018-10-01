@@ -100,19 +100,19 @@
                     <label for="rollen" class="control-label">Rollen: </label>
                     <input id="rollen"
                     	   type="radio"
-                    	   value="Administrator"
+                    	   value="ADMIN"
                            class="form-control"
-                           th:field="*{rollen}"/> Administrator 
+                           th:field="*{rollen}"/> ADMIN 
                     <input id="rollen"
                     	   type="radio"
-                    	   value="Supervisor"
+                    	   value="SUPERVISOR"
                            class="form-control"
-                           th:field="*{rollen}"/> Supervisor 
+                           th:field="*{rollen}"/> SUPERVISOR 
                     <input id="rollen"
                     	   type="radio"
-                    	   value="Benutzer" 
+                    	   value="BENUTZER" 
                            class="form-control"
-                           th:field="*{rollen}"/> Benutzer <br>
+                           th:field="*{rollen}"/> BENUTZER <br>
                     <p class="error-message"
                        th:each="error : ${#fields.errors('rollen')}"
                        th:text="${error}">Validation error</p>

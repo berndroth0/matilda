@@ -18,6 +18,7 @@
         <label for="eanzahl" class="control-label">Anzahl</label>
         <input id="eanzahl"
         type="number"
+        min="1"
         class="form-control"
         th:field="*{eanzahl}"/>
         <p class="error-message"
@@ -28,11 +29,7 @@
        	<div class="form-group"
         th:classappend="${#fields.hasErrors('einheitentyp')}? 'has-error':''">
         <label for="einheitentyp" class="control-label">Einheitentyp</label>
-        <select th:field="*{einheitentyp}">
-  			<option th:each="einheitentyp : ${alleEinheitentypen}" 
-         	 th:value="${einheitentyp.id}" 
-       	     th:text="${einheitentyp.name}"></option>
-		</select></p>	
+        <p th:text="${mitarbeitertyp_einheitentyp.einheitentyp.name}"></p>
 		<p class="error-message"
        	th:each="error: ${#fields.errors('einheitentyp')}"
         th:text="${error}">Validation error</p>
@@ -43,6 +40,7 @@
         <label for="manzahl" class="control-label">Anzahl</label>
         <input id="manzahl"
         type="number"
+        min="1"
         class="form-control"
         th:field="*{manzahl}"/>
         <p class="error-message"
