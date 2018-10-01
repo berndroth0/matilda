@@ -28,42 +28,40 @@ public class EinheitentypController
 		this.einheitentypRepository = einheitentypRepository;
 	}
 	
-	// ************************************* EinheitentypList ************************************
+	// ************************************* EinheitentypList +  hinzufügen ************************************
 	
-	@RequestMapping(value="/einheitentypen" , method=RequestMethod.GET)
+	@RequestMapping(value="/einheitentyp" , method=RequestMethod.GET)
 	public String list(Model model)
 	{
+        model.addAttribute("einheitentyp", new Einheitentyp());
+		
 		List<Einheitentyp> einheitentypen = einheitentypRepository.findAll();
 		if(einheitentypen!=null)
 		{
 			model.addAttribute("einheitentypen",einheitentypen);
 		}
-		return "einheitentypen";
+		return "einheitentyp";
 	}
 	
-	// ************************************* Einheitentyp hinzufügen ************************************
-	
-	@RequestMapping(value="/einheitentyp", method=RequestMethod.GET)
-    public String addForm(Model model) {
-        model.addAttribute("einheitentyp", new Einheitentyp());
-        return "einheitentyp";
-    }
-	
     @RequestMapping(value="/einheitentyp", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute("einheitentyp") @Valid Einheitentyp einheitentyp, BindingResult result) {
+    public String addSpeichern(Model model, @ModelAttribute("einheitentyp") @Valid Einheitentyp einheitentyp, BindingResult result) {
     	
-    	Einheitentyp existing =  einheitentypRepository.findByName(einheitentyp.getName());
-    	
-		if(existing!=null )
-		{	
-			 result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
-		}
+    	Einheitentyp existing = einheitentypRepository.findByName(einheitentyp.getName());
+    	if(existing!=null)
+    	{
+    		result.rejectValue("name", null, "Es ist bereits ein Einheitentyp mit gleichem Namen eingetragen");
+    	}
         if (result.hasErrors()){
-            return "einheitentyp";
+    		List<Einheitentyp> einheitentypen = einheitentypRepository.findAll();
+    		if(einheitentypen!=null)
+    		{
+    			model.addAttribute("einheitentypen",einheitentypen);
+    		}
+            return "einheitentyp";        
         }
 
 		einheitentypRepository.save(einheitentyp);
-        return "redirect:/einheitentypen?success";		
+        return "redirect:/einheitentyp?success";		
     }
 	
 	// ************************************* Einheitentyp Ändern ************************************
@@ -83,7 +81,7 @@ public class EinheitentypController
      	
     	if(einheitentyp.getName().equals(existing.getName()))		
     	{   		 
-        	return "redirect:/einheitentypen?nochange";
+        	return "redirect:/einheitentyp?nochange";
     	}
     	if(andere!=null)
     	{
@@ -96,7 +94,7 @@ public class EinheitentypController
 		existing.setName(einheitentyp.getName());
 		
 		einheitentypRepository.save(existing);       	
-    	return "redirect:/einheitentypen?success";
+    	return "redirect:/einheitentyp?success";
 	}    
     
 	// ************************************* Einheitentyp Löschen ************************************
@@ -106,6 +104,6 @@ public class EinheitentypController
 	{
 		einheitentypRepository.deleteById(id);
 		
-		return "redirect:/einheitentypen?loeschen";
+		return "redirect:/einheitentyp?loeschen";
 	}
 }

@@ -27,31 +27,23 @@ public class MaterialtypController
 		this.materialtypRepository = materialtypRepository;
 	}
 	
-	// ************************************* MaterialtypenList ************************************
+	// ************************************* MaterialtypenList + Hinzufügen ************************************
 	
-	@RequestMapping(value="/materialtypen" , method=RequestMethod.GET)
+	@RequestMapping(value="/materialtyp" , method=RequestMethod.GET)
 	public String list(Model model)
 	{
-		List<Materialtyp> materialtypen = materialtypRepository.findAll();
+		model.addAttribute("materialtyp", new Materialtyp());
 		
+		List<Materialtyp> materialtypen = materialtypRepository.findAll();		
 		if(materialtypen !=null)
 		{
 			model.addAttribute("materialtypen",materialtypen);
 		}
-		return "materialtypen";
-	}
-	
-	// ************************************* Materialtyp Hinzufügen ************************************
-		
-	@RequestMapping(value="/materialtyp", method=RequestMethod.GET)
-    public String addForm(Model model) {
-        model.addAttribute("materialtyp", new Materialtyp());
-        return "materialtyp";
-    }
-	
+		return "materialtyp";
+	}	
 	
     @RequestMapping(value="/materialtyp", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute("materialtyp") @Valid Materialtyp materialtyp, BindingResult result) {
+    public String addSpeichern(Model model, @ModelAttribute("materialtyp") @Valid Materialtyp materialtyp, BindingResult result) {
     	
     	Materialtyp existing = materialtypRepository.findByName(materialtyp.getName());
     	
@@ -60,11 +52,18 @@ public class MaterialtypController
 			 result.rejectValue("name", null, "Es ist bereits ein Materialtyp mit gleichem Namen eingetragen");
 		}
 	    if (result.hasErrors()){
+	    	
+			List<Materialtyp> materialtypen = materialtypRepository.findAll();		
+			if(materialtypen !=null)
+			{
+				model.addAttribute("materialtypen",materialtypen);
+			}
+			
 	        return "materialtyp";
 	    }
 	    
     	materialtypRepository.save(materialtyp);
-        return "redirect:/materialtypen?success";
+        return "redirect:/materialtyp?success";
     }
 	
 	// ************************************* Materialtyp Ändern ************************************
@@ -96,7 +95,7 @@ public class MaterialtypController
             }
     		
         	materialtypRepository.save(existing);       	
-        	return "redirect:/materialtypen?success";
+        	return "redirect:/materialtyp?success";
     	}
     	if(andere!=null)
     	{
@@ -112,7 +111,7 @@ public class MaterialtypController
 		existing.setLink(materialtyp.getLink());
 		
     	materialtypRepository.save(existing);       	
-    	return "redirect:/materialtypen?success";
+    	return "redirect:/materialtyp?success";
 	}    
     
 	// ************************************* Materialtyp Löschen ************************************
@@ -122,6 +121,6 @@ public class MaterialtypController
 	{
 		materialtypRepository.deleteById(id);
 		
-		return "redirect:/materialtypen?loeschen";
+		return "redirect:/materialtyp?loeschen";
 	}   
 }

@@ -42,43 +42,42 @@ public class LagerstandortController
 		return userRepository.findAll();
 	}
 	
-//  ****************************************   Lagerstandorten List  *****************************************
+//  ****************************************   Lagerstandorten List +  Hinzufügen *****************************************
 	
-	@RequestMapping(value="/lagerstandorten" , method=RequestMethod.GET)
+	@RequestMapping(value="/lagerstandort" , method=RequestMethod.GET)
 	public String list(Model model)
 	{
+		model.addAttribute("lagerstandort", new Lagerstandort());
+		
 		List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
 		if(lagerstandorten!=null)
 		{
 			model.addAttribute("lagerstandorten",lagerstandorten);
 		}
-		return "lagerstandorten";
+		return "lagerstandort";
 	}
 	
-//  ****************************************   Lagerstandort Hinzufügen  ***************************************
-
-	@RequestMapping(value="/lagerstandort", method=RequestMethod.GET)
-    public String addForm(Model model) {
-        model.addAttribute("lagerstandort", new Lagerstandort());
-        return "lagerstandort";
-    }
-	
     @RequestMapping(value="/lagerstandort", method=RequestMethod.POST)
-    public String addSpeichern(@ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort, BindingResult result) {
-  	    	
-    	Lagerstandort existing =  lagerstandortRepository.findByName(lagerstandort.getName());
-    	
-    	if(existing!=null )
-		{	
-			 result.rejectValue("name", null, "Es ist bereits ein Lagerstandort mit gleichem Namen eingetragen");
-		}
+    public String addSpeichern(Model model, @ModelAttribute("lagerstandort") @Valid Lagerstandort lagerstandort, BindingResult result) {
+  	    
+    	Lagerstandort existing = lagerstandortRepository.findByName(lagerstandort.getName());
+    	if(existing!=null)
+    	{
+    		result.rejectValue("name", null, "Es ist bereits ein Lagerstandort mit gleichem Namen eingetragen");
+    	}
         if (result.hasErrors()){
+        	
+    		List<Lagerstandort> lagerstandorten = lagerstandortRepository.findAll();
+    		if(lagerstandorten!=null)
+    		{
+    			model.addAttribute("lagerstandorten",lagerstandorten);
+    		}
             return "lagerstandort";
         }		
 		else
 		{
 			lagerstandortRepository.save(lagerstandort);
-	        return "redirect:/lagerstandorten?success";
+	        return "redirect:/lagerstandort?success";
 		}
     }
     
@@ -110,7 +109,7 @@ public class LagerstandortController
             }
     		
     		lagerstandortRepository.save(existing);       	
-        	return "redirect:/lagerstandorten?success";
+        	return "redirect:/lagerstandort?success";
     	}
     	if(andere!=null)
     	{
@@ -126,7 +125,7 @@ public class LagerstandortController
 		existing.setBenutzer(lagerstandort.getBenutzer());
 		
     	lagerstandortRepository.save(existing);       	
-    	return "redirect:/lagerstandorten?success";
+    	return "redirect:/lagerstandort?success";
 	}    
 
 	// ************************************* Lagerstandort Löschen ************************************
@@ -136,7 +135,7 @@ public class LagerstandortController
 	{
 		lagerstandortRepository.deleteById(id);
 		
-		return "redirect:/lagerstandorten?loeschen";
+		return "redirect:/lagerstandort?loeschen";
 	}
     
 

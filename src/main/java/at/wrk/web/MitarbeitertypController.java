@@ -27,27 +27,21 @@ public class MitarbeitertypController
 		this.mitarbeitertypRepository = mitarbeitertypRepository;
 	}
 	
-	// ************************************* MitarbeitertypList ************************************
+	// ************************************* MitarbeitertypList + hinzufügen ************************************
 	
-	@RequestMapping(value="/mitarbeitertypen" , method=RequestMethod.GET)
+	@RequestMapping(value="/mitarbeitertyp" , method=RequestMethod.GET)
 	public String list(Model model)
 	{
+		model.addAttribute("mitarbeitertyp", new Mitarbeitertyp());
+		
 		List<Mitarbeitertyp> mitarbeitertypen = mitarbeitertypRepository.findAll();
 		if(mitarbeitertypen !=null)
 		{
 			model.addAttribute("mitarbeitertypen",mitarbeitertypen);
 		}
-		return "mitarbeitertypen";
+		return "mitarbeitertyp";
 	}
-	
-	// ************************************* Mitarbeitertyp hinzufügen ************************************
-	
-	@RequestMapping(value="/mitarbeitertyp", method=RequestMethod.GET)
-    public String addForm(Model model) {
-        model.addAttribute("mitarbeitertyp", new Mitarbeitertyp());
-        return "mitarbeitertyp";
-    }
-	
+		
     @RequestMapping(value="/mitarbeitertyp", method=RequestMethod.POST)
     public String addSpeichern(@ModelAttribute("mitarbeitertyp") @Valid Mitarbeitertyp mitarbeitertyp, BindingResult result) {
     	
@@ -61,7 +55,7 @@ public class MitarbeitertypController
 	    }
 	    
 		mitarbeitertypRepository.save(mitarbeitertyp);
-        return "redirect:/mitarbeitertypen?success";	
+        return "redirect:/mitarbeitertyp?success";	
     }
     
 	// ************************************* Mitarbeitertyp Ändern ************************************
@@ -90,11 +84,11 @@ public class MitarbeitertypController
             }
     		
     		mitarbeitertypRepository.save(existing);       	
-        	return "redirect:/mitarbeitertypen?success";
+        	return "redirect:/mitarbeitertyp?success";
     	}
     	if(andere!=null)
     	{
-    		result.rejectValue("kuerzel", null, "Es ist bereits ein Mitarbeitertyp mit gleichem Namen eingetragen");
+    		result.rejectValue("kuerzel", null, "Es ist bereits ein Mitarbeitertyp mit gleichem Kürzel eingetragen");
     	}
         if (result.hasErrors()){
             return "mitarbeitertypupdate";
@@ -104,8 +98,7 @@ public class MitarbeitertypController
 		existing.setName(mitarbeitertyp.getName());
 		
     	mitarbeitertypRepository.save(existing);       	
-    	return "redirect:/mitarbeitertypen?success";
-    	
+    	return "redirect:/mitarbeitertyp?success";    	
 	}   
     
 	// ************************************* Einheitentyp Löschen ************************************
@@ -115,6 +108,6 @@ public class MitarbeitertypController
 	{
 		mitarbeitertypRepository.deleteById(id);
 		
-		return "redirect:/mitarbeitertypen?loeschen";
+		return "redirect:/mitarbeitertyp?loeschen";
 	}
 }
