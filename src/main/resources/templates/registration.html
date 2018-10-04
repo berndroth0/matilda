@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-
-    <title>Registration</title>
-</head>
+	<head th:replace="/fragment/header :: head"></head>
 <body>
 <div class="container">
     <div class="row">
@@ -61,7 +52,7 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('konfBenutzername')}? 'has-error':''">
-                    <label for="konfBenutzername" class="control-label">BestÃ¤tigungs-Benutzername</label>
+                    <label for="konfBenutzername" class="control-label">Bestätigungs-Benutzername</label>
                     <input id="konfBenutzername"
                            class="form-control"
                            th:field="*{konfBenutzername}"/>
@@ -82,7 +73,7 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('konfPasswort')}? 'has-error':''">
-                    <label for="konfPasswort" class="control-label">BestÃ¤tigungs-Passwort</label>
+                    <label for="konfPasswort" class="control-label">Bestätigungs-Passwort</label>
                     
                     <input id="konfPasswort"
                            class="form-control"
@@ -119,19 +110,12 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
-                    <input id="terms"
-                           type="checkbox"
-                           th:field="*{terms}"/> Â 
-                    <label class="control-label" for="terms">
-                        I agree with the <a href="#">terms and conditions</a> for Registration.
-                    </label>
                     <p class="error-message"
                        th:each="error : ${#fields.errors('terms')}"
                        th:text="${error}">Validation error</p>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Register</button>
-                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
                 </div>
 
             </form>
@@ -141,6 +125,8 @@
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+<div th:replace="/fragment/footer :: footer"></div>
 
 </body>
 </html>

@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Veranstaltung</title>
-</head>
+<head th:replace="/fragment/header :: head"></head>
+
 <h3>Eine neue Veranstaltung erstellen</h3>
 <body>
     <form action="#" th:action="@{/veranstaltung}" th:object="${veranstaltung}" method="post">
@@ -55,7 +49,7 @@
     	
         <p><input type="submit" value="Submit" /> </p>
     </form>
-<h2>Ãœbersicht Veranstaltungen</h2>
+<h2>Übersicht Veranstaltungen</h2>
 <div th:unless="${#lists.isEmpty(veranstaltungen)}">
 <table class="table table-striped">
 <thead>
@@ -98,10 +92,14 @@
             </div>
 		    <div th:if="${param.loeschen}">
                 <div class="alert alert-info">
-                    Die Veranstaltung wurde erfolgreich gelÃ¶scht!
+                    Die Veranstaltung wurde erfolgreich gelöscht!
                 </div>
             </div>          
 </div>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+	<div th:replace="/fragment/footer :: footer"></div>
+
 </body>
+</html>

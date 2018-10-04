@@ -7,34 +7,14 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Einheitentyp</title>
+<title>Einheitentypen</title>
 </head>
 <body>
+<h2>Einheitentypen List</h2>
 
-<body>
-	<h3>Einen neuen Einheitentyp hinzuf&uuml;gen</h3>
-    <form action="#" th:action="@{/einheitentyp}" th:object="${einheitentyp}" method="post">
-    
-	    <p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-                   
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('name')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-		
-        <p><input type="submit" value="Submit" /> </p>
-    </form>
-
-<h2>Übersicht Einheitentypen</h2>
+<form>
+<input type="button" value="einen neuen Einheitentyp hinzuf&uuml;gen" onclick="window.location.href='einheitentyp'" />
+</form>
 
 <div th:unless="${#lists.isEmpty(einheitentypen)}">
 <table class="table table-striped">
@@ -50,10 +30,6 @@
 <a href="#" data-th-href="@{/einheitentypupdate/{id}(id=${einheitentyp.id})}">&Auml;ndern</a>
 </td>
 <td>
-<a href="#" data-th-href="@{/mitarbeitereinheit/{id}(id=${einheitentyp.id})}"> -> Mitarbeitertyp</a>
-</td>
-<td>
-<a href="#" data-th-href="@{/materialeinheit/{id}(id=${einheitentyp.id})}"> -> Materialtyp</a>
 </td>
 </tr>
 </table>

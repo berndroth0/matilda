@@ -7,42 +7,14 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Mitarbeitertyp</title>
+<title>Mitarbeitertypen</title>
 </head>
 <body>
-	<h3>Einen neuen Mitarbeitertyp hinzuf&uuml;gen</h3>
-    <form action="#" th:action="@{/mitarbeitertyp}" th:object="${mitarbeitertyp}" method="post">
-    
-    	<p class="error-message"
-	    th:if="${#fields.hasGlobalErrors()}"
-	    th:each="error : ${#fields.errors('global')}"
- 		th:text="${error}">Validation error</p>
-                   
-		<div class="form-group"
-        th:classappend="${#fields.hasErrors('kuerzel')}? 'has-error':''">
-        <label for="kuerzel" class="control-label">Kürzel</label>
-        <input id="kuerzel"
-        class="form-control"
-        th:field="*{kuerzel}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('kuerzel')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-       	<div class="form-group"
-        th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-        <label for="name" class="control-label">Name</label>
-        <input id="name"
-        class="form-control"
-        th:field="*{name}"/>
-        <p class="error-message"
-       	th:each="error: ${#fields.errors('name')}"
-        th:text="${error}">Validation error</p>
-       	</div>
-       	
-        <p><input type="submit" value="Submit" /> </p>
-    </form>
-<h2>Übersicht Mitarbeitertypen</h2>
+<h2>Mitarbeitertypen List</h2>
+
+<form>
+<input type="button" value="ein neuen Mitarbeitertyp hinzuf&uuml;gen" onclick="window.location.href='mitarbeitertyp'" />
+</form>
 
 <div th:unless="${#lists.isEmpty(mitarbeitertypen)}">
 <table class="table table-striped">
