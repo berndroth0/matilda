@@ -8,12 +8,24 @@
 
             <div th:if="${param.success}">
                 <div class="alert alert-info">
-                    You've successfully registered to our awesome app!
+                    Your user was successfully registered
                 </div>
             </div>
 
             <h1>Registration</h1>
-            <form th:action="@{/registration}" th:object="${benutzer}" method="post">
+            <p>
+            
+				Password must meet the following requirements at least:</br>
+					*) eight characters</br>
+					*) one upper-case character [A-Z]</br>
+					*) one lower-case character [a-z]</br>
+                	*) one digit character [0-9]</br>
+					*) one symbol (special character) [!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]</br>
+                	*) three alphabetical characters</br>
+                	*) no whitespace
+            
+            </p>
+            <form th:action="@{/registration}" th:object="${benutzer}" method="post" autocomplete="off">
 
                 <p class="error-message"
                    th:if="${#fields.hasGlobalErrors()}"
@@ -52,7 +64,7 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('konfBenutzername')}? 'has-error':''">
-                    <label for="konfBenutzername" class="control-label">Best‰tigungs-Benutzername</label>
+                    <label for="konfBenutzername" class="control-label">Best√§tigungs-Benutzername</label>
                     <input id="konfBenutzername"
                            class="form-control"
                            th:field="*{konfBenutzername}"/>
@@ -73,7 +85,7 @@
                 </div>
                 <div class="form-group"
                      th:classappend="${#fields.hasErrors('konfPasswort')}? 'has-error':''">
-                    <label for="konfPasswort" class="control-label">Best‰tigungs-Passwort</label>
+                    <label for="konfPasswort" class="control-label">Best√§tigungs-Passwort</label>
                     
                     <input id="konfPasswort"
                            class="form-control"

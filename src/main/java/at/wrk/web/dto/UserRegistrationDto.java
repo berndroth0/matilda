@@ -1,28 +1,27 @@
 package at.wrk.web.dto;
 
-import at.wrk.constraint.*;
+import java.util.Collection;
+import javax.validation.constraints.AssertTrue;
+import org.hibernate.validator.constraints.NotEmpty;
+import at.wrk.constraint.ValidPassword;
 import at.wrk.model.Rolle;
 
-import org.apache.tools.ant.types.selectors.DifferentSelector;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.Collection;
-
-import javax.validation.constraints.AssertTrue;
-
-@FieldMatch.List({
-        @FieldMatch(first = "passwort", second = "konfPasswort", message = "Das Passwort muss übereinstimmen!"),
-        @FieldMatch(first = "benutzername", second = "konfBenutzername", message = "Der Benutzername muss übereinstimmen!")
-})
+//@FieldMatch.List({
+//        @FieldMatch(first = "passwort", second = "konfPasswort", message = "Das Passwort muss übereinstimmen!"),
+//        @FieldMatch(first = "benutzername", second = "konfBenutzername", message = "Der Benutzername muss übereinstimmen!")
+//})
 public class UserRegistrationDto {
 
     @NotEmpty
     private String anzeigename;
 
     @NotEmpty
+    @ValidPassword
     private String passwort;
 
     @NotEmpty
+    @ValidPassword
     private String konfPasswort;
     
     @NotEmpty

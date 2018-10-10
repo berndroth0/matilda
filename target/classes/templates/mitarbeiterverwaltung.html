@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<head>
+	    <meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+	<title>Material</title>
+	</head>
+	<body>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
-<title>Material</title>
-</head>
-<body>
-
-<security:authorize access="hasRole('BENUTZER')">
-    This text is only visible to a user
-    <br/>
-</security:authorize>
-<security:authorize access="hasRole('ADMIN')">
-    This text is only visible to an admin
-    <br/>
-</security:authorize>
-
-</body>
+	<!-- Only to be sure an Admin is able to do nasty things -->
+	<!-- Normally should not be necessary, but you never know -->
+	<div sec:authorize="hasAuthority('ADMIN')">
+	
+		<h3 align = "center">Mitarbeiter&u;umlbersicht</h3>
+		
+		<form method="GET" id="mitverwaltung"></form>
+		
+		<table border="1">
+			<tr>
+				<th>Anzeigename</th>
+				<th>Benutzername</th>
+				<th>Aktiv</th>
+			</tr>
+			<tr th:each="smokeTest : ${smokeTests}">
+			   <td th:text="${smokeTest.name}"></td>
+			</tr>
+		</table>
+		
+		<button type="button" form="my_form">Bestätige Änderung</button>
+	
+	</security:authorize>
+	
+	</body>
 </html>
